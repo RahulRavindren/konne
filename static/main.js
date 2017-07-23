@@ -19,13 +19,13 @@ function askAudioInput(){
   		console.log('start receiving stream');
   		alert('Recording audio');
   		audio_context = new AudioContext;
-  		sampleRate = audio_context.sampleRate;
 		var audioInput = audio_context.createMediaStreamSource(stream);
 		var bufferSize = 4096;
 
 		var recording = true;
 
-
+		sampleRate = audio_context.sampleRate;
+		
 		var recorder = audio_context.createScriptProcessor(bufferSize, 1, 1);
    		recorder.onaudioprocess = function(e){
    			if(recording){
@@ -48,14 +48,14 @@ function askAudioInput(){
 		   			socket.close();
 		   			socket_connect.close();
 
-		   			
+
 
 		   		};
 		   		media_stop_elem.classList.remove('hide');
    			}
 
    		};
-   		audioInput.connect(recorder);
+   		 audioInput.connect(recorder);
    		recorder.connect(audio_context.destination);
 
 

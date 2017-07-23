@@ -9,6 +9,7 @@ from flask_socketio import SocketIO
 from werkzeug.utils import secure_filename
 from flask import render_template
 from collections import OrderedDict
+import scikits.audiolab 
 
 
 app = Flask(__name__)
@@ -69,8 +70,10 @@ def socketDisconnect():
 		except OSError as e:
 			print e.message
 	print 'writing file to : ' + config.AUDIO_DIR + "/"+ config.AUDIO_FILE + '.wav'
-	scipy.io.wavfile.write(config.AUDIO_DIR + "/"+ config.AUDIO_FILE + '.wav', 
-		config.FILE_WRITE_RATE , np.array(session['curren_session_audio']))
+	scikits.audiolab.wavwrite(np.array(session['curren_session_audio']) , 
+		config.AUDIO_DIR + "/"+ config.AUDIO_FILE + '.wav' , fs = 16000 , enc ='pcm16')
+	# scipy.io.wavfile.write(config.AUDIO_DIR + "/"+ config.AUDIO_FILE + '.wav', 
+	# 	config.FILE_WRITE_RATE , np.array(session['curren_session_audio']))
 
 @socketio.on('listenaudio', namespace='/streamaudio')
 def handle_audio_receiver(audio):
