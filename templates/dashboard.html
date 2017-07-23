@@ -1,0 +1,28 @@
+
+{%- extends "base.html" %}
+
+
+{% block content %}
+<h3> Speak or upload file </h3>
+<form class= "form-inline" method="post" enctype="multipart/form-data">
+	<div class="form-group">
+		<input type=file name=file>
+	</div>
+	<input type="submit" class="btn btn-default" value="Upload">
+</form>
+<br>
+<h3> OR </h3>
+<button  class="btn btn-default" onclick="askAudioInput()">Speak</button>
+<span id="media-stop" class="glyphicon glyphicon-stop hide" aria-hidden="false" onclick=""></span>
+
+<div class="audio_output hide">
+	<
+</div>
+{%- endblock %}
+
+{% block scripts %}
+<script src="{{url_for('.static', filename='main.js')}}"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+{{super()}}
+{% endblock %}
+
